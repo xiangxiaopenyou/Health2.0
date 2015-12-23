@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Course" representedClassName="Course" syncable="YES">
+        <attribute name="courseapplynum" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursebody" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursecount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursecreatedtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursedetailimgage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursedifficultty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursefat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursehastake" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseintrduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseisappraise" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseisstart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseofclub" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseoldprice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseownerid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursephoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursepowerdifficulty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseprice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseshaping" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesign" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursestarttime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursestate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursestrength" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursetarget" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursetitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="coursesub" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CourseSub" inverseName="course" inverseEntity="CourseSub" syncable="YES"/>
+        <relationship name="teacher" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FriendInfo" inverseName="teacherofcourse" inverseEntity="FriendInfo" syncable="YES"/>
+        <relationship name="userinfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserInfo" syncable="YES"/>
+        <relationship name="userinforecommend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserInfo" inverseName="recommendcourse" inverseEntity="UserInfo" syncable="YES"/>
+    </entity>
+    <entity name="CourseInteraction" syncable="YES"/>
+    <entity name="CourseSub" representedClassName="CourseSub" syncable="YES">
+        <attribute name="coursesubaddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubbegintime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubcontact" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubcontent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubflag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubintrduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesuborder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="coursesubpositionX" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coursesubpositionY" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="coursesubtelphone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coursesubtype" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="course" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="coursesub" inverseEntity="Course" syncable="YES"/>
+    </entity>
+    <entity name="FriendInfo" representedClassName="FriendInfo" syncable="YES">
+        <attribute name="friendattitudescore" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendbirthday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendintrduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendoverallappraisal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendphoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendpointstudent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendpointsystem" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendsex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendskillscore" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="friendtype" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="teacherofcourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="teacher" inverseEntity="Course" syncable="YES"/>
+    </entity>
+    <entity name="Trend" representedClassName="Trend" syncable="YES">
+        <attribute name="couseid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="islike" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ispublic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendcommentnumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendcomments" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendcontent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendlikemember" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendlikenumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendphoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendsportstype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trendtype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="useraddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userheaderphoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usernickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usersex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usertype" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="trendcomment" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrendComment" inverseName="commentoftrend" inverseEntity="TrendComment" syncable="YES"/>
+        <relationship name="trendsofall" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserInfo" inverseName="alltrends" inverseEntity="UserInfo" syncable="YES"/>
+    </entity>
+    <entity name="TrendComment" representedClassName="TrendComment" syncable="YES">
+        <attribute name="commentcontent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commenttype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentuserid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentusernickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userheadphoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usernickname" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="commentoftrend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trend" inverseName="trendcomment" inverseEntity="Trend" syncable="YES"/>
+    </entity>
+    <entity name="UserInfo" representedClassName="UserInfo" syncable="YES">
+        <attribute name="balance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="goodat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isnewuser" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myfeans" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myfollow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rongyunid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rongyunportrait" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skillpoint" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teacherpoint" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="totalmoney" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userarea" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userbirthday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userbodyphoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userheight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userintrduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userlike" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userphoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usersex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usersycle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usertargetweight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usertelphone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usertoken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="usertype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userweight" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="alltrends" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trend" inverseName="trendsofall" inverseEntity="Trend" syncable="YES"/>
+        <relationship name="minecourse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" syncable="YES"/>
+        <relationship name="myevaluatedcourse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" syncable="YES"/>
+        <relationship name="myfinishedcourse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" syncable="YES"/>
+        <relationship name="recommendcourse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" inverseName="userinforecommend" inverseEntity="Course" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Course" positionX="-315" positionY="-9" width="128" height="495"/>
+        <element name="CourseInteraction" positionX="-189" positionY="135" width="128" height="45"/>
+        <element name="CourseSub" positionX="-171" positionY="126" width="128" height="285"/>
+        <element name="FriendInfo" positionX="-189" positionY="135" width="128" height="240"/>
+        <element name="Trend" positionX="-189" positionY="135" width="128" height="375"/>
+        <element name="TrendComment" positionX="-189" positionY="135" width="128" height="178"/>
+        <element name="UserInfo" positionX="-63" positionY="-18" width="128" height="525"/>
+    </elements>
+</model>

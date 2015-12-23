@@ -1,0 +1,58 @@
+//
+//  Health-Prefix.pch
+//  Health
+//
+//  Created by cheng on 15/1/23.
+//  Copyright (c) 2015年 realtech. All rights reserved.
+//
+
+#ifndef Health_Health_Prefix_pch
+#define Health_Health_Prefix_pch
+
+
+#import <Availability.h>
+#import "CoreData+MagicalRecord.h"
+#import "UIImageView+WebCache.h"
+#import "LastTableViewCell.h"
+#import "UIButton+WebCache.h"
+#import "RCIM.h"
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "AppDelegate.h"
+#import "AFNetworking.h"
+#import "MobClick.h"
+#import "RTUploadImageNetWork.h"
+
+#import "WXApi.h"
+#import "WXApiObject.h"
+
+#import "UserData.h"
+#import "Util.h"
+#import "LayoutDefine.h"
+#import "RTConstant.h"
+#import "UrlConstan.h"
+#import "NetWorking.h"
+#import "CustomDate.h"
+#import "EGORefreshTableHeaderView.h"
+
+#import "Trend.h"
+#import "TrendRequest.h"
+#import "ClubRequest.h"
+#import "CourseRequest.h"
+
+#import "UserInfo.h"
+#import "Course.h"
+#import "CourseSub.h"
+#import "FriendInfo.h"
+#import "TrendComment.h"
+
+#import "OwnInfoViewController.h"
+#import "PersonalViewController.h"
+#endif
+
+#endif

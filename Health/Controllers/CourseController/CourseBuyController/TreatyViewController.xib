@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TreatyViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5sz-Be-UPk">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <attributedString key="attributedText">
+                        <fragment>
+                            <string key="content">入 会 申 请 表
+协议内容（同时生效）
+欢迎您加入健身坊APP训练营，训练过程中将由指定的教练团队带领您完成这段愉快的健康之旅，为了您在整个训练过程中时享受到优质的、完善的服务，请您认真阅读本入会须知。申请加入训练营的会员。必须具有完全的法律行为能力，并同意遵守本训练营相关管理规章制度。
+
+本协议中甲方：健身坊APP、训练营及其教练组
+本协议中乙方：入会签约会员
+成为本训练营的会员，均应接受本训练营的相关入会手续，并已知晓本训练营的有关训练规则与警示，承诺遵守本训练营的相关规定。
+乙方必须保证在报名时填写的会员资料真实、有效、全面。乙方本人照片必须是本人。乙方资料如有变动，须及时通知相关助理教练。否则引起的乙方相关权益的损失，均由乙方本人负责。（与附件二同时生效）
+严禁心肺功能疾病、脊椎病、皮肤病、关节损伤等不适合健身运动者进入本训练营，入会时如有隐瞒，所发生的一切后果及对他人产生的后果甲方不负任何责任。如因此造成第三人损害的，则由其承担赔偿责任。
+此协议指定的会籍及权利属乙方个人所有，乙方可以参加本训练营的课程，课件，免费咨询与瘦身健身相关的专业问题（收费项目除外，具体使用依据会所的管理规定进行）。
+（1）会员名额不可转让：若乙方因个人原因确实无法继续使用会员名额，可书面申请退出培训课程。
+（2）本训练营会员由于个人原因退出培训，所缴纳的会费概不退还。如存在客观原因的，须提交证明，所缴纳的会费扣除总额度20%的违约金后，按照剩余天数比例返还（本期会费已由健身坊APP全额缴纳）
+乙方有遵守本协议中约定和训练营管理制度、会员手册的义务，如有违反相关规定的发生，本训练营有权终止其会员资格，已交纳的费用不得要求退还。乙方要保证三餐睡眠规律，以及一周至少5天每天保证1小时运动时间等具体要求。
+运动前后严禁饮用含酒精类饮品及任何国家法律法规禁止的兴奋类服用剂。
+为了乙方的健身安全，乙方训练时须穿着专业的运动服、运动鞋及运动装备。运动期间，不得参与违反国家法律法规的活动、不得穿着违反道德规范服饰进行运动。
+乙方在参加健身锻炼时请勿携带珠宝饰品等贵重物品，以免丢失或造成意外。
+未征得本训练营的书面同意，禁止将本训练营的训练计划及方式方法外泄，签署后视为同意此保密协议，如有外泄训练计划及方式方法，本训练营有权开除会员并追究法律责任以及赔偿。
+责任免除条款：
+（1）因乙方在训练营培训期内从事任何体育锻炼或活动、或使用任何设施（包括但不限于乙方现在或将来可能使用的健身器材、更衣间、沐浴、停车场、走廊，或参加任何活动、课程、项目或培训）而产生的任何及全部后果及责任均由乙方自行承担，除非该后果或责任的产生完全是由于本训练营的故意造成的。
+（2）乙方在此声明，乙方具有完全民事行为能力，自愿参加本训练营并已理解和预见到在本训练营培训期内从事任何体育锻炼或活动、或使用任何设施可能发生的各种危险、风险及其后果（如受伤、感染疾病、由此引发治疗及相关费用及损失、遗失或个人物品被盗等），并承诺乙方将自行承担在上述过程中由于上列原因而引起的任何损害或损失（除非该等情况完全是由于本训练营的故意造成的）。
+（3）因个人体质、基础形态、运动机能的不同，本训练营不能保证所有学员都能取得完全一致的训练效果；本训练营会根据乙方情况设定科学的饮食作息标准，并设定合理的、循序渐进的运动计划；训练营成员必须完全相信并严格执行所有的餐饮、作息及运动计划，每天根据教练组要求进行相关真实数据上报，任何未按要求执行或每日未按要求上报数据的乙方，培训期间及培训结束后如果没有取得理想的训练效果，甲方不承担任何责任。
+（4）未经过正规医院体检，未知或隐瞒自身伤病，以至于无法按教练组计划进行正常运动训练或任何无法按标准完成教练组制定的训练计划，培训期间及培训结束后如果没有取得理想的训练效果，甲方不承担任何责任。
+（5）未按照教练组建议，配备专业运动服装、鞋类及辅助装备，在培训期间未按教练组计划严格执行运动保护动作及运动前后拉伸动作而造成的运动性损伤，甲方不承担任何责任；因运动损伤导致无法按时按量完成教练组制定的运动计划，培训期间及培训结束后如果没有取得理想的训练效果，甲方不承担任何责任。
+（6）若乙方为女性会员须非孕期，若怀孕（包括培训期间怀孕）出现任何情况，甲方不承担任何责任。乙方若在哺乳期中前期，不建议参加训练，在哺乳期中后期，请提前告知教练组，并根据单独较缓速方案执行，但若哺乳期参加，出现任何情况，甲方不承担任何责任。女性训练刚开始，因人而异可能会出现例假不调的现象，请不用紧张但请和教练组保持及时沟通。
+本训练营保留增加、改进或者取消非合适课程的权利。本训练营将在做出前述任何一项变更时，提前将变更内容公布于健身坊APP相应公告内，变更将自通知公布后开始生效。
+乙方确认已取得本协议书的电子版，该协议书签署的电子版以及汇款电子凭证作为乙方取得正式会员资格前进入本训练营的依据。
+本协议书适用于中华人民共和国法律，并根据中华人民共和国法律予以解释。
+        
+附件二：
+
+健康状况特别说明（同时生效）
+参加本次训练营培训前，乙方须保证未患有下列疾病：
+患有心脏病
+患有骨质疏松症
+有血糖及血压疾病。
+有严重的慢性并发症，如心脏，肾，视网膜病变，严重下肢血管病变，植物神经功能障碍等。
+有肝炎、肾炎等疾病
+手术完仍处于康复期的患者，比如韧带撕裂康复、骨折康复、半月板损伤康复等
+有脊椎及关节变形或损伤、肢体重要骨骼有过骨折史。
+有怀孕或者还处在哺乳期前期。
+存在其他已知或未知的不适应大强度运动的疾病。
+
+以上9条如果全为否 请乙方确认，若有因以上疾病所造成的任何问题，甲方不承担责任。</string>
+                            <attributes>
+                                <font key="NSFont" size="22" name="STSongti-SC-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="5sz-Be-UPk" secondAttribute="trailing" id="XUJ-qM-tuk"/>
+                <constraint firstItem="5sz-Be-UPk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bQc-aX-d8r"/>
+                <constraint firstItem="5sz-Be-UPk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gld-sz-BCp"/>
+                <constraint firstAttribute="bottom" secondItem="5sz-Be-UPk" secondAttribute="bottom" id="wnd-RG-tTx"/>
+            </constraints>
+            <point key="canvasLocation" x="353" y="185"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CourseApplySuccessController">
+            <connections>
+                <outlet property="courseTitleLabel" destination="06J-NG-d0M" id="Ejc-gN-W6n"/>
+                <outlet property="view" destination="yVb-Yf-59z" id="bjk-SB-fao"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="yVb-Yf-59z">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="三十天瘦身训练营" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06J-NG-d0M">
+                    <rect key="frame" x="8" y="153" width="304" height="42"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="BRj-vv-mUX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLH-cI-D0F">
+                    <rect key="frame" x="66" y="223" width="188" height="42"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="s1I-sn-Nev"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="course_apply_success.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="gobackMineCourse:" destination="-1" eventType="touchUpInside" id="uQ8-pm-OPH"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待审核" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDE-c9-TxT">
+                    <rect key="frame" x="8" y="39" width="304" height="106"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="106" id="qVX-0C-OsQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="NLH-cI-D0F" secondAttribute="centerX" id="905-G9-ypP"/>
+                <constraint firstItem="eDE-c9-TxT" firstAttribute="top" secondItem="yVb-Yf-59z" secondAttribute="top" constant="39" id="Psy-Mr-e85"/>
+                <constraint firstItem="06J-NG-d0M" firstAttribute="leading" secondItem="yVb-Yf-59z" secondAttribute="leadingMargin" id="XbP-X5-wcu"/>
+                <constraint firstItem="eDE-c9-TxT" firstAttribute="leading" secondItem="yVb-Yf-59z" secondAttribute="leadingMargin" id="fuv-Na-HzF"/>
+                <constraint firstItem="eDE-c9-TxT" firstAttribute="trailing" secondItem="yVb-Yf-59z" secondAttribute="trailingMargin" id="m4X-59-1tg"/>
+                <constraint firstItem="06J-NG-d0M" firstAttribute="top" secondItem="eDE-c9-TxT" secondAttribute="bottom" constant="8" id="mg1-f8-fP9"/>
+                <constraint firstItem="06J-NG-d0M" firstAttribute="trailing" secondItem="yVb-Yf-59z" secondAttribute="trailingMargin" id="yKe-4Z-bvP"/>
+                <constraint firstItem="NLH-cI-D0F" firstAttribute="top" secondItem="06J-NG-d0M" secondAttribute="bottom" constant="28" id="ydD-aX-wN5"/>
+            </constraints>
+            <point key="canvasLocation" x="440" y="308"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="course_apply_success.png" width="188" height="42"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
