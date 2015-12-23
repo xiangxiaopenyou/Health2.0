@@ -52,18 +52,19 @@
     if (isappstore == 1) {//appstore 需要登录注册
         [LoginRequest isAppstoreSuccess:^(id response) {
             if (![Util isEmpty:[response objectForKey:@"data"]]&&[[response objectForKey:@"data"] intValue] == 2 ) {
-                userLoginButton.hidden = NO;
-                weChatLoginButton.hidden = YES;
+                userLoginButton.hidden = YES;
+                weChatLoginButton.hidden = NO;
             }else{
                 userLoginButton.hidden = NO;
-                weChatLoginButton.hidden = NO;
+                weChatLoginButton.hidden = YES;
             }
         } failure:^(NSError *error) {
         }];
-    }else{
+    } else {
         //企业包不需要登录注册
         weChatLoginButton.hidden = NO;
         userLoginButton.hidden = YES;
+        //loginButton.hidden = NO;
     }
     
 }

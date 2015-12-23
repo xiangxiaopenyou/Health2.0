@@ -15,8 +15,9 @@
 #import "HSCButton.h"
 #import "ChooseLabelViewController.h"
 #import "ChoosePositionViewController.h"
+#import "ExtendPhotoEditComponet.h"
 
-@interface ClockInViewController ()<UITextViewDelegate,CLLocationManagerDelegate, RMDateSelectionViewControllerDelegate, UIAlertViewDelegate, SportsEnergyDelegate, FoodEnergyDelegate, UIActionSheetDelegate, TuSDKPFCameraDelegate, chooseLabelDelegete, PositionViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>{
+@interface ClockInViewController ()<UITextViewDelegate,CLLocationManagerDelegate, RMDateSelectionViewControllerDelegate, UIAlertViewDelegate, SportsEnergyDelegate, FoodEnergyDelegate, UIActionSheetDelegate, chooseLabelDelegete, PositionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
     UILabel *tipLabel;
     //定位
     CLLocationManager *locationManager;
@@ -69,16 +70,38 @@
     NSDictionary *selectedFoodDic;
 }
 @property (nonatomic, strong) UIView *selectedView;
-@property (nonatomic, strong) UIPickerView *picker;
+//@property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIButton *ensureButton;
+@property (nonatomic, strong) UIImagePickerController *cameraController;
+@property (nonatomic, strong) UIButton *chooseAlbumButton;
 
 @end
 
 @implementation ClockInViewController
 @synthesize clockinTimeLabel, clockinWeightLabel, sportsEnergyLabel, foodEnergyLabel, contentTextView, imageView, positionLabel, positionButton, privateButton;
 @synthesize addLabelButton, addLabelImageView, addTipLabel;
-@synthesize selectedView, picker, cancelButton, ensureButton;
+@synthesize selectedView, cancelButton, ensureButton;
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(takedPhoto:) name:@"_UIImagePickerControllerUserDidCaptureItem" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rejectedPhoto:) name:@"_UIImagePickerControllerUserDidRejectItem" object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"_UIImagePickerControllerUserDidCaptureItem" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"_UIImagePickerControllerUserDidRejectItem" object:nil];
+}
+
+- (void)takedPhoto:(NSDictionary *)userInfo {
+    [_chooseAlbumButton removeFromSuperview];
+}
+
+- (void)rejectedPhoto:(NSDictionary *)userInfo {
+    [_cameraController.view addSubview:_chooseAlbumButton];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -390,50 +413,50 @@
     
 }
 
-- (void)setupSelectedView {
-    selectedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    selectedView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
-    selectedView.userInteractionEnabled = YES;
-    [selectedView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelButtonClick)]];
-    
-    picker = [[UIPickerView alloc] initWithFrame:CGRectMake(30, SCREEN_HEIGHT/2 - 100, SCREEN_WIDTH - 60, 162)];
-    picker.delegate = self;
-    picker.dataSource = self;
-    picker.backgroundColor = [UIColor colorWithRed:238/255.0 green:244/255.0 blue:251/255.0 alpha:1.0];
-    picker.layer.masksToBounds = YES;
-    picker.layer.cornerRadius = 5;
-    [selectedView addSubview:picker];
-    
-    CGRect pickerFrame = picker.frame;
-    UILabel *minutesLabel = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 60)/2 + 30, CGRectGetHeight(pickerFrame)/2 - 15, 40, 30)];
-    minutesLabel.text = @"克";
-    minutesLabel.font = [UIFont systemFontOfSize:18];
-    [picker addSubview:minutesLabel];
-    
-    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 157.5, SCREEN_WIDTH - 60, 0.5)];
-    line.backgroundColor = LINE_COLOR_GARG;
-    [picker addSubview:line];
-    
-    cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelButton.frame = CGRectMake(30, SCREEN_HEIGHT/2 + 58, (SCREEN_WIDTH-60)/2, 35);
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    cancelButton.backgroundColor = [UIColor colorWithRed:238/255.0 green:244/255.0 blue:251/255.0 alpha:1.0];
-    [cancelButton addTarget:self action:@selector(cancelButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [selectedView addSubview:cancelButton];
-    
-    ensureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    ensureButton.frame = CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 58, (SCREEN_WIDTH-60)/2, 35);
-    [ensureButton setTitle:@"确定" forState:UIControlStateNormal];
-    [ensureButton setTitleColor:TABLEVIEW_BACKGROUNDCOLOR forState:UIControlStateNormal];
-    ensureButton.backgroundColor = MAIN_COLOR_YELLOW;
-    [ensureButton addTarget:self action:@selector(ensureButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [selectedView addSubview:ensureButton];
-    
-    [self.view addSubview:selectedView];
-    
-    [selectedView setHidden:YES];
-}
+//- (void)setupSelectedView {
+//    selectedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    selectedView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+//    selectedView.userInteractionEnabled = YES;
+//    [selectedView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelButtonClick)]];
+//    
+//    pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(30, SCREEN_HEIGHT/2 - 100, SCREEN_WIDTH - 60, 162)];
+//    pickerView.delegate = self;
+//    pickerView.dataSource = self;
+//    pickerView.backgroundColor = [UIColor colorWithRed:238/255.0 green:244/255.0 blue:251/255.0 alpha:1.0];
+//    pickerView.layer.masksToBounds = YES;
+//    pickerView.layer.cornerRadius = 5;
+//    [selectedView addSubview:pickerView];
+//    
+//    CGRect pickerFrame = pickerView.frame;
+//    UILabel *minutesLabel = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 60)/2 + 30, CGRectGetHeight(pickerFrame)/2 - 15, 40, 30)];
+//    minutesLabel.text = @"克";
+//    minutesLabel.font = [UIFont systemFontOfSize:18];
+//    [pickerView addSubview:minutesLabel];
+//    
+//    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 157.5, SCREEN_WIDTH - 60, 0.5)];
+//    line.backgroundColor = LINE_COLOR_GARG;
+//    [pickerView addSubview:line];
+//    
+//    cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    cancelButton.frame = CGRectMake(30, SCREEN_HEIGHT/2 + 58, (SCREEN_WIDTH-60)/2, 35);
+//    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+//    [cancelButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    cancelButton.backgroundColor = [UIColor colorWithRed:238/255.0 green:244/255.0 blue:251/255.0 alpha:1.0];
+//    [cancelButton addTarget:self action:@selector(cancelButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [selectedView addSubview:cancelButton];
+//    
+//    ensureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    ensureButton.frame = CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 58, (SCREEN_WIDTH-60)/2, 35);
+//    [ensureButton setTitle:@"确定" forState:UIControlStateNormal];
+//    [ensureButton setTitleColor:TABLEVIEW_BACKGROUNDCOLOR forState:UIControlStateNormal];
+//    ensureButton.backgroundColor = MAIN_COLOR_YELLOW;
+//    [ensureButton addTarget:self action:@selector(ensureButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [selectedView addSubview:ensureButton];
+//    
+//    [self.view addSubview:selectedView];
+//    
+//    [selectedView setHidden:YES];
+//}
 - (void)cancelButtonClick{
     [selectedView setHidden:YES];
 }
@@ -457,7 +480,7 @@
     UIButton *finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     finishButton.frame = CGRectMake(SCREEN_WIDTH - 50, 20, 40, 40);
     [finishButton setTitle:@"完成" forState:UIControlStateNormal];
-    [finishButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [finishButton setTitleColor:MAIN_COLOR_YELLOW forState:UIControlStateNormal];
     [finishButton addTarget:self action:@selector(finishClick) forControlEvents:UIControlEventTouchUpInside];
     [addLabelView addSubview:finishButton];
     
@@ -482,6 +505,108 @@
     addTipLabel.textAlignment = NSTextAlignmentCenter;
     [addLabelView addSubview:addTipLabel];
     
+}
+
+- (void)showCamera {
+    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 100, SCREEN_WIDTH, 100)];
+    toolView.backgroundColor = [UIColor blackColor];
+    UIButton *takePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    takePhotoButton.frame = CGRectMake((SCREEN_WIDTH - 80) / 2, SCREEN_HEIGHT - 80, 80, 80);
+    takePhotoButton.backgroundColor = [UIColor whiteColor];
+    [toolView addSubview:takePhotoButton];
+    
+    if (!_cameraController) {
+        _cameraController = [[UIImagePickerController alloc] init];
+        _cameraController.delegate = self;
+        _cameraController.allowsEditing = YES;
+        _cameraController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        _chooseAlbumButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_chooseAlbumButton addTarget:self action:@selector(showAlbum) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self presentViewController:_cameraController animated:YES completion:^{
+        
+        CGPoint origin = CGPointZero;
+        CGFloat width = 0;
+        for (UIView *subview in _cameraController.view.subviews) {
+            if([NSStringFromClass([subview class]) isEqualToString:@"UINavigationTransitionView"]) {
+                UIView *theView = (UIView *)subview;
+                for (UIView *subview in theView.subviews) {
+                    if([NSStringFromClass([subview class]) isEqualToString:@"UIViewControllerWrapperView"]) {
+                        UIView *theView = (UIView *)subview;
+                        for (UIView *subview in theView.subviews) {
+                            if([NSStringFromClass([subview class]) isEqualToString:@"PLImagePickerCameraView"]) {
+                                UIView *theView = (UIView *)subview;
+                                for (UIView *subview in theView.subviews) {
+                                    if([NSStringFromClass([subview class]) isEqualToString:@"CAMBottomBar"]) {
+                                        UIView *theView = (UIView *)subview;
+                                        for (UIView *view in theView.subviews) {
+                                            if ([view isKindOfClass:NSClassFromString(@"CAMShutterButton")]) {
+                                                origin = view.frame.origin;
+                                                origin.y += CGRectGetMinY(view.superview.frame);
+                                                width = CGRectGetWidth(view.frame);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        _chooseAlbumButton.frame = CGRectMake(SCREEN_WIDTH - width - 20, origin.y, width, width);
+        [_cameraController.view addSubview:_chooseAlbumButton];
+        
+        [[ALAssetsLibrary defaultLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            if (group) {
+                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                    if (result) {
+                        [_chooseAlbumButton setBackgroundImage:[UIImage imageWithCGImage:[[result defaultRepresentation] fullResolutionImage]] forState:UIControlStateNormal];
+                        *stop = YES;
+                    }
+                }];
+                *stop = YES;
+            }
+        } failureBlock:^(NSError *error) {
+            NSLog(@"get album photo failed %@", error.description);
+        }];
+        
+    }];
+}
+- (void)showAlbum {
+    [self dismissViewControllerAnimated:NO completion:^{
+        UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerVC.delegate = self;
+        [self presentViewController:imagePickerVC animated:YES completion:nil];
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSLog(@"%@", info);
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *image = info[UIImagePickerControllerOriginalImage];
+        [self openEditWithImage:image];
+    }];
+    
+}
+- (void)takePhotoClick{
+    [self showCamera];
+}
+
+- (void)openEditWithImage:(UIImage *)image {
+    ExtendPhotoEditComponet *compont = [ExtendPhotoEditComponet new];
+    
+    [compont showSimpleWithController:self image:image callback:^(UIImage *image) {
+        ispicture = YES;
+        imageView.image = image;
+        addLabelImageView.image = image;
+        [UIView animateWithDuration:0.3f animations:^{
+            addLabelView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        }];
+    }];
 }
 
 
@@ -589,22 +714,8 @@
 }
 
 - (void)imagePress:(UITapGestureRecognizer*)gesture{
-    [self showActionSheet];
-}
-- (void)showActionSheet{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照上传",@"从相册选择", nil];
-    [actionSheet showInView:[[[[UIApplication sharedApplication] keyWindow] subviews]lastObject]];
-}
-#pragma mark - UIActionSheet Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        [self cameraComponentHandler];
-    }
-    else if(buttonIndex == 1){
-        [self editAdvancedComponentHandler];
-    }
-    else{
-    }
+    //[self showActionSheet];
+    [self takePhotoClick];
 }
 /*
  完成打标签
@@ -840,7 +951,7 @@
             labelButton4 = [[HSCButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - labelStringSize.width - 100 + twoWordsSize.width, addLabelImageView.frame.size.height - 38, labelStringSize.width + 90 - twoWordsSize.width, 28)];
             [labelButton4 setBackgroundImage:tagImageRight forState:UIControlStateNormal];
             [labelButton4 setTitle:labelString forState:UIControlStateNormal];
-            [labelButton5 setTitleColor:WHITE_CLOCLOR forState:UIControlStateNormal];
+            [labelButton4 setTitleColor:WHITE_CLOCLOR forState:UIControlStateNormal];
             labelButton4.titleLabel.font = SMALLFONT_14;
             labelButton4.dragEnable = YES;
             [addLabelImageView addSubview:labelButton4];
@@ -1072,102 +1183,6 @@
     }
 }
 
-#pragma mark - editAdvancedComponentHandler
-- (void)editAdvancedComponentHandler;
-{
-    //lsqLDebug(@"editAdvancedComponentHandler");
-    _albumComponent =
-    [TuSDK albumCommponentWithController:self
-                           callbackBlock:^(TuSDKResult *result, NSError *error, UIViewController *controller)
-     {
-         // 获取图片错误
-         if (error) {
-             [self throwWithReason:@"album reader error" userInfo:error.userInfo];
-             return;
-         }
-         [self openEditAdvancedWithController:controller result:result];
-     }];
-    
-    [_albumComponent showComponent];
-}
-/**
- *  开启图片高级编辑
- *
- *  @param controller 来源控制器
- *  @param result     处理结果
- */
-- (void)openEditAdvancedWithController:(UIViewController *)controller
-                                result:(TuSDKResult *)result;
-{
-    //    // 图片编辑入口控制器配置选项
-    //    _editEntryOptions = [TuSDKPFEditEntryOptions build];
-    //    // 默认: true, 开启裁剪旋转功能
-    //    _editEntryOptions.enableCuter = YES;
-    //    // 默认: true, 开启滤镜功能
-    //    _editEntryOptions.enableFilter = YES;
-    //    // 默认: true, 开启贴纸功能
-    //    _editEntryOptions.enableSticker = YES;
-    //    // 最大输出图片按照设备屏幕 (默认:false, 如果设置了LimitSideSize, 将忽略LimitForScreen)
-    //    _editEntryOptions.limitForScreen = YES;
-    //    // 保存到系统相册
-    //    _editEntryOptions.saveToAlbum = NO;
-    //
-    //    // 图片编辑滤镜控制器配置选项
-    //    _editFilterOptions = [TuSDKPFEditFilterOptions build];
-    //    // 默认: true, 开启滤镜配置选项
-    //    _editFilterOptions.enableFilterConfig = YES;
-    //    // 是否仅返回滤镜，不返回处理图片(默认：false)
-    //    _editFilterOptions.onlyReturnFilter = YES;
-    //
-    //    // 图片编辑裁切旋转控制器配置选项
-    _editCuterOptions = [TuSDKPFEditCuterOptions build];
-    //    // 是否开启图片旋转(默认: false)
-    //    _editCuterOptions.enableTrun = YES;
-    //    // 是否开启图片镜像(默认: false)
-    //    _editCuterOptions.enableMirror = YES;
-    // 裁剪比例 (默认:lsqRatioAll)
-    //    _editCuterOptions.ratioType = lsqRatio_1_1;
-    // 是否仅返回裁切参数，不返回处理图片
-    //   _editCuterOptions.onlyReturnCuter = YES;
-    //
-    //    // 本地贴纸选择控制器配置选项
-    //    _stickerLocalOptions = [TuSDKPFStickerLocalOptions build];
-    
-    if (!controller || !result) return;
-    
-    _photoEditComponent =
-    [TuSDK photoEditCommponentWithController:controller
-                               callbackBlock:^(TuSDKResult *result, NSError *error, UIViewController *controller)
-     {
-         [self clearComponents];
-         // 获取图片失败
-         if (error) {
-             [self throwWithReason:@"editAdvanced error" userInfo:error.userInfo];
-             return;
-         }
-         [result logInfo];
-         imageView.image = [result loadResultImage];
-         ispicture = YES;
-         tag = 0;
-         addLabelImageView.image = [result loadResultImage];
-         [UIView animateWithDuration:0.5f animations:^{
-             addLabelView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-         }];
-         
-         
-     }];
-    // 设置图片
-    _photoEditComponent.options.editEntryOptions.saveToAlbum = NO;
-    _photoEditComponent.options.editCuterOptions.ratioType = lsqRatio_1_1;
-    _photoEditComponent.inputImage = result.image;
-    _photoEditComponent.inputTempFilePath = result.imagePath;
-    _photoEditComponent.inputAsset = result.imageAsset;
-    // 是否在组件执行完成后自动关闭组件 (默认:NO)
-    _photoEditComponent.autoDismissWhenCompelted = YES;
-    [_photoEditComponent showComponent];
-    
-    
-}
 
 /**
  *  清楚所有控件
@@ -1183,117 +1198,6 @@
 
 - (void)onComponent:(TuSDKCPViewController *)controller result:(TuSDKResult *)result error:(NSError *)error{
 }
-
-
-//相机
-- (void) cameraComponentHandler;
-{
-    // 如果不支持摄像头显示警告信息
-    if ([AVCaptureDevice showAlertIfNotSupportCamera]){
-        return;
-    }
-    
-    TuSDKPFCameraOptions *opt = [TuSDKPFCameraOptions build];
-    
-    // 视图类 (默认:TuSDKPFCameraView, 需要继承 TuSDKPFCameraView)
-    // opt.viewClazz = [TuSDKPFCameraView class];
-    
-    // 默认相机控制栏视图类 (默认:TuSDKPFCameraConfigView, 需要继承 TuSDKPFCameraConfigView)
-    // opt.configBarViewClazz = [TuSDKPFCameraConfigView class];
-    
-    // 默认相机底部栏视图类 (默认:TuSDKPFCameraBottomView, 需要继承 TuSDKPFCameraBottomView)
-    // opt.bottomBarViewClazz = [TuSDKPFCameraBottomView class];
-    
-    // 闪光灯视图类 (默认:TuSDKPFCameraFlashView, 需要继承 TuSDKPFCameraFlashView)
-    // opt.flashViewClazz = [TuSDKPFCameraFlashView class];
-    
-    // 滤镜视图类 (默认:TuSDKPFCameraFilterView, 需要继承 TuSDKPFCameraFilterView)
-    // opt.filterViewClazz = [TuSDKPFCameraFilterView class];
-    
-    // 聚焦触摸视图类 (默认:TuSDKICFocusTouchView, 需要继承 TuSDKICFocusTouchView)
-    // opt.focusTouchViewClazz = [TuSDKICFocusTouchView class];
-    
-    // 摄像头前后方向 (默认为后置优先)
-    // opt.avPostion = [AVCaptureDevice firstBackCameraPosition];
-    
-    // 设置分辨率模式
-    // opt.sessionPreset = AVCaptureSessionPresetHigh;
-    
-    // 闪光灯模式 (默认:AVCaptureFlashModeOff)
-    // opt.defaultFlashMode = AVCaptureFlashModeOff;
-    
-    // 是否开启滤镜支持 (默认: 关闭)
-    opt.enableFilters = YES;
-    
-    // 默认是否显示滤镜视图 (默认: 不显示, 如果enableFilters = NO, showFilterDefault将失效)
-    opt.showFilterDefault = YES;
-    
-    // 需要显示的滤镜名称列表 (如果为空将显示所有自定义滤镜)
-    // opt.filterGroup = @[@"Normal", @"SkinTwiceMixedSigma", @"Artistic"];
-    
-    // 开启滤镜配置选项
-    opt.enableFilterConfig = YES;
-    
-    // 视频视图显示比例 (默认：0， 0 <= mRegionRatio, 当设置为0时全屏显示)
-    // opt.cameraViewRatio = 0.75f;
-    
-    // 视频视图显示比例类型 (默认:lsqRatioAll, 如果设置cameraViewRatio > 0, 将忽略ratioType)
-    opt.ratioType = lsqRatioAll;
-    
-    // 是否开启长按拍摄 (默认: NO)
-    opt.enableLongTouchCapture = YES;
-    
-    // 开启持续自动对焦 (默认: NO)
-    opt.enableContinueFoucs = YES;
-    
-    // 自动聚焦延时 (默认: 5秒)
-    // opt.autoFoucsDelay = 5;
-    
-    // 长按延时 (默认: 1.2秒)
-    // opt.longTouchDelay = 1.2;
-    
-    // 保存到系统相册 (默认不保存, 当设置为YES时, TuSDKResult.asset)
-    opt.saveToAlbum = YES;
-    
-    // 保存到临时文件 (默认不保存, 当设置为YES时, TuSDKResult.tmpFile)
-    // opt.saveToTemp = NO;
-    
-    // 保存到系统相册的相册名称
-    // opt.saveToAlbumName = @"TuSdk";
-    
-    // 照片输出压缩率 0-1 如果设置为0 将保存为PNG格式 (默认: 0.95)
-    // opt.outputCompress = 0.95f;
-    
-    // 视频覆盖区域颜色 (默认：[UIColor clearColor])
-    opt.regionViewColor = RGB(51, 51, 51);
-    
-    // 照片输出分辨率
-    // opt.outputSize = CGSizeMake(1440, 1920);
-    
-    // 禁用前置摄像头自动水平镜像 (默认: NO，前置摄像头拍摄结果自动进行水平镜像)
-    // opt.disableMirrorFrontFacing = YES;
-    
-    TuSDKPFCameraViewController *controller = opt.viewController;
-    // 添加委托
-    controller.delegate = self;
-    [self presentModalNavigationController:controller animated:YES];
-}
-#pragma mark - cameraComponentHandler TuSDKPFCameraDelegate
-/**
- *  获取一个拍摄结果
- *
- *  @param controller 默认相机视图控制器
- *  @param result     拍摄结果
- */
-- (void)onTuSDKPFCamera:(TuSDKPFCameraViewController *)controller captureResult:(TuSDKResult *)result;
-{
-    //[controller dismissModalViewControllerAnimated:YES];
-    [self openEditAdvancedWithController:controller result:result];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    
-    //[self editAdvancedComponentHandler];
-}
-
 
 
 - (void)didReceiveMemoryWarning {

@@ -85,6 +85,8 @@
     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-NAVIGATIONBAR_HEIGHT)];
     self.scrollView.backgroundColor = [UIColor clearColor];
     [self addScrollView];
+    self.scrollView.userInteractionEnabled = YES;
+    [self.scrollView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundPress:)]];
     [self.view addSubview:self.scrollView];
     
     submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -112,6 +114,14 @@
 - (void)backClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (void)backgroundPress:(UITapGestureRecognizer*)gesture{
+    [heightTextField resignFirstResponder];
+    [weightTextField resignFirstResponder];
+    [telPhoneTextField resignFirstResponder];
+}
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+
+//}
 - (void)addScrollView{
     
     [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -240,6 +250,7 @@
     heightTextField.textAlignment = NSTextAlignmentRight;
     heightTextField.font = [UIFont systemFontOfSize:14.0];
     heightTextField.returnKeyType = UIReturnKeyDone;
+    heightTextField.keyboardType = UIKeyboardTypeDecimalPad;
     heightTextField.textColor = WHITE_CLOCLOR;
     heightTextField.delegate = self;
     [baseInfoView addSubview:heightTextField];
@@ -260,6 +271,7 @@
     weightTextField.textAlignment = NSTextAlignmentRight;
     weightTextField.font = [UIFont systemFontOfSize:14.0];
     weightTextField.returnKeyType = UIReturnKeyDone;
+    weightTextField.keyboardType = UIKeyboardTypeDecimalPad;
     weightTextField.textColor = WHITE_CLOCLOR;
     weightTextField.delegate = self;
     [baseInfoView addSubview:weightTextField];
@@ -282,6 +294,7 @@
     telPhoneTextField.textAlignment = NSTextAlignmentRight;
     telPhoneTextField.font = [UIFont systemFontOfSize:14.0];
     telPhoneTextField.returnKeyType = UIReturnKeyDone;
+    telPhoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     telPhoneTextField.textColor = WHITE_CLOCLOR;
     telPhoneTextField.delegate = self;
     [baseInfoView addSubview:telPhoneTextField];
@@ -743,6 +756,13 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    return YES;
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([@"\n" isEqualToString:string]) {
+        [textField resignFirstResponder];
+        return NO;
+    }
     return YES;
 }
 

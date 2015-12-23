@@ -12,6 +12,7 @@
 #import "MessageRequest.h"
 #import "LoginMainViewController.h"
 #import "FirstViewController.h"
+#import <CommonCrypto/CommonDigest.h>
 
 @interface AppDelegate ()
 
@@ -80,7 +81,6 @@
     }
 }
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    
     NSString* dt = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     UserData *userData = [UserData shared];
     userData.deviceToken = dt;

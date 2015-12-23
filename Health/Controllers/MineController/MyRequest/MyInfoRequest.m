@@ -149,6 +149,7 @@
             userInfo.userbirthday = [Util isEmpty:[[response objectForKey:@"data"] objectForKey:@"userbirthday"]]?nil:[[response objectForKey:@"data"] objectForKey:@"userbirthday"];
             userInfo.userphoto = [Util isEmpty:[[response objectForKey:@"data"] objectForKey:@"userheadportrait"]]?nil:[[response objectForKey:@"data"] objectForKey:@"userheadportrait"];
             userInfo.usersex = [Util isEmpty:[[response objectForKey:@"data"] objectForKey:@"usersex"]]?nil:[[response objectForKey:@"data"] objectForKey:@"usersex"];
+            userInfo.usertelphone = [Util isEmpty:[[response objectForKey:@"data"] objectForKey:@"tel"]]?nil:[[response objectForKey:@"data"] objectForKey:@"tel"];
             userInfo.userintrduce = [Util isEmpty:[[response objectForKey:@"data"] objectForKey:@"userintroduce"]]?nil:[[response objectForKey:@"data"] objectForKey:@"userintroduce"];
             userInfo.usertargetweight = [Util isEmpty:[[response objectForKey:@"data"] objectForKey:@"weight"]]?nil:[[response objectForKey:@"data"] objectForKey:@"weight"];
             [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];

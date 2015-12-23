@@ -66,7 +66,6 @@
 //        [yAxisValues addObject:str];
 //    }
     
-       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addData:) name:@"addData" object:nil];
 //    [self performSelector:@selector(delay) withObject:self afterDelay:2];
     
     // Do any additional setup after loading the view from its nib.
@@ -120,7 +119,7 @@
     self.weghtLabel.textColor=[UIColor whiteColor];
     [self.view addSubview:_weghtLabel];
     _kgLabel=[[UILabel alloc]initWithFrame:CGRectMake(110, 90, 100, 20)];
-    self.kgLabel.text=[NSString stringWithFormat:@"%.1f% @%",[self.goalWeight integerValue]*1.0,@"kg"];
+    self.kgLabel.text=[NSString stringWithFormat:@"%.1f %@",[self.goalWeight floatValue],@"kg"];
     self.kgLabel.textColor=[UIColor yellowColor];
     [self.view addSubview:_kgLabel];
     UILabel *titteabel=[[UILabel alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT-250-100, 100, 20)];
@@ -128,18 +127,18 @@
     titteabel.textColor=[UIColor whiteColor];
     [self.view addSubview:titteabel];
     UILabel *dateLabel=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50, SCREEN_HEIGHT-120, 60, 20)];
-    dateLabel.text=@"日期";
-    dateLabel.textColor=[UIColor whiteColor];
+    dateLabel.text = @"日期";
+    dateLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:dateLabel];
 
     self.lineChartView.max = 100;
     self.lineChartView.min = 0;
     self.lineChartView.interval = (self.lineChartView.max-self.lineChartView.min)/5;
     
-    self.lineChartView.frame=CGRectMake(10, SCREEN_HEIGHT-250-70, SCREEN_WIDTH, 250);
+    self.lineChartView.frame=CGRectMake(10, SCREEN_HEIGHT-250-70, SCREEN_WIDTH-20, 250);
     NSMutableArray* yAxisValues = [@[] mutableCopy];
     for (int i=0; i<6; i++) {
-        NSString* str = [NSString stringWithFormat:@"%.2f",i*20.0];
+        NSString* str = [NSString stringWithFormat:@"%.1f",i*20.0];
         [yAxisValues addObject:str];
     }
     
@@ -154,7 +153,7 @@
     plot1.lineColor = [UIColor yellowColor];
     plot1.lineWidth = 0.5;
     [self.lineChartView addPlot:plot1];
-        self.lineChartView.max = 100;
+    self.lineChartView.max = 100;
     self.lineChartView.min = 0;
     
     
@@ -165,77 +164,6 @@
 }
 - (void)backClick{
     [self.navigationController popViewControllerAnimated:YES];
-}
-- (void)addData:(NSNotification *)notity
-{
-    UserData *userdata = [UserData shared];
-    UserInfo *userinfo = userdata.userInfo;
-    
-    static float i=0;
-    NSString *dayStr=_dayArray[0];
-    if ([[dayStr substringFromIndex:0]isEqualToString:@"0"]) {
-        NSString *dayStr1=[dayStr substringFromIndex:1];
-        i=([dayStr1 intValue]-1)*1.0;
-        if (i==0.0) {
-            return;
-        }
-      // NSString *monthStr=_monthArray[0];
-       //month=[monthStr integerValue]*1.0;
-//        if (i==0.0) {
-//            NSString *monthStr=_monthArray[0];
-//            if ([monthStr  substringFromIndex:0]isEqualToString:@"0"]) {
-//                month=([[monthStr substringFromIndex:1] integerValue]-1)*1.0;
-//            }
-//            else
-//            {
-//                ;
-//            }
-//        }
-    }
-    else
-    {
-        i=([dayStr integerValue]-1)*1.0;
-    }
-    
-    NSString*timeStr=[NSString stringWithFormat:@"2015-%@-%02.f",_monthArray[_monthArray.count-1],i];
-   
-    if ([_lastStr isEqualToString:timeStr]) {
-        return;
-    }
-    
-    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithObjectsAndKeys:userinfo.userid,@"userid",userinfo.usertoken,@"usertoken",timeStr,@"time",nil];
-    NSString *url = [NSString stringWithFormat:@"%@%@",URL_BASE,URL_CHART_DATA];
-    [NetWorking post:url params:parameter success:^(id response) {
-        
-        NSArray *dataArray=[response objectForKey:@"data"];
-        {
-            
-        }
-        for (int i=0; i<dataArray.count; i++) {
-            NSDictionary *dic=dataArray[i];
-            ChartData *chartData=[[ChartData alloc]init];
-            chartData.day=[dic objectForKey:@"day"];
-            chartData.weight=[dic objectForKey:@"weight"];
-            NSLog(@"))))%@",chartData.weight);
-            NSArray *dayStr=[chartData.day componentsSeparatedByString:@"-"];
-            [_dayArray insertObject:dayStr[2] atIndex:i];
-            [_chartArray insertObject:chartData.weight atIndex:i];
-        }
-
-        
-        
-
-        self.lineChartView.xAxisValues = _dayArray;
-        self.lineChartView.axisLeftLineWidth = 39;
-        
-        
-        _plot1.plottingValues = _chartArray;
-    } failure:^(NSError *error) {
-        
-    }];
-    _lastStr=timeStr;
-
-    
 }
 - (void)didReceiveMemoryWarning
 {

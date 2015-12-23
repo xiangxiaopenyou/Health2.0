@@ -18,7 +18,7 @@
 #import "RecommendUsersViewController.h"
 #import "FocusImageViewController.h"
 
-@interface ShowHomeViewController ()<EGORefreshTableHeaderDelegate, TrendsTableViewCellDelegate, UIActionSheetDelegate, UIScrollViewDelegate, ClockinCellDelete>{
+@interface ShowHomeViewController ()<EGORefreshTableHeaderDelegate, TrendsTableViewCellDelegate, UIActionSheetDelegate, UIScrollViewDelegate, ClockinCellDelete, UIGestureRecognizerDelegate>{
     AppDelegate *appDelegate;
     UserInfo *userInfo;
     
@@ -57,7 +57,7 @@
     UIScrollView *topScroll;
     UIPageControl *page;
 }
-
+@property (assign, nonatomic) CGPoint lastPoint;
 @end
 
 @implementation ShowHomeViewController
@@ -108,7 +108,73 @@
     [self getRecommendUsers];
     [self refreshRecommendPhotos];
     [self refreshClockinList];
+    
+    UIPanGestureRecognizer *recentPanGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlerPanGestureRecognizer:)];
+    recentPanGR.delegate = self;
+    [recentTableView addGestureRecognizer:recentPanGR];
+    UIPanGestureRecognizer *recommendPanGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlerPanGestureRecognizer:)];
+    recommendPanGR.delegate = self;
+    [recommendTableView addGestureRecognizer:recommendPanGR];
+    UIPanGestureRecognizer *clockinPanGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlerPanGestureRecognizer:)];
+    clockinPanGR.delegate = self;
+    [clockinTableView addGestureRecognizer:clockinPanGR];
 }
+
+- (void)handlerPanGestureRecognizer:(UIPanGestureRecognizer *)panGR {
+    UIView *containerView = [panGR.view superview];
+    if (panGR.state == UIGestureRecognizerStateEnded) {
+        _lastPoint = CGPointZero;
+        if (CGRectGetMinX(containerView.frame) >= 0 || CGRectGetMinX(containerView.frame) <= -1 * SCREEN_WIDTH * 2) {
+            return;
+        }
+        CGPoint velocity = [panGR velocityInView:self.view];
+        [UIView animateWithDuration:.1
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             containerView.frame = CGRectOffset(containerView.frame, velocity.x / 20, 0);
+                         } completion:^(BOOL finished) {
+                             CGFloat pageIndex = (-1 * CGRectGetMinX(containerView.frame) / SCREEN_WIDTH);
+                             if (pageIndex < 0.5) {
+                                 [self recommendClick];
+                             } else if (pageIndex < 1.5) {
+                                 [self recentClick];
+                             } else {
+                                 [self clockinClick];
+                             }
+                         }];
+        return;
+    }
+    
+    CGPoint point = [panGR locationInView:self.view];
+    if (panGR.state == UIGestureRecognizerStateBegan) {
+        _lastPoint = point;
+        return;
+        
+    }
+    
+    NSInteger changeX = point.x - _lastPoint.x;
+    CGRect newFrame = CGRectOffset(containerView.frame, changeX, 0);
+    if (CGRectGetMinX(newFrame) > 0) {
+        newFrame.origin.x = 0;
+    } else if (CGRectGetMinX(newFrame) < -1 * SCREEN_WIDTH * 2) {
+        newFrame.origin.x = -1 * SCREEN_WIDTH * 2;
+    }
+    containerView.frame = newFrame;
+    
+    _lastPoint = point;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view];
+    if (fabs(translation.x) > fabs(translation.y)) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
 - (void)addHeaderView{
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, 43)];
     headerView.backgroundColor = TABLEVIEW_BACKGROUNDCOLOR;
@@ -964,7 +1030,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == topScroll) {
-        page.currentPage = floor(scrollView.contentOffset.x/scrollView.frame.size.width);
+        page.currentPage = floor(scrollView.contentOffset.x / scrollView.frame.size.width);
     }
     else {
         if (currentIndex == 1) {

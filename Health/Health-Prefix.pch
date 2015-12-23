@@ -11,11 +11,13 @@
 
 
 #import <Availability.h>
-#import "CoreData+MagicalRecord.h"
+//#import "CoreData+MagicalRecord.h"
+#import <MagicalRecord.h>
 #import "UIImageView+WebCache.h"
 #import "LastTableViewCell.h"
 #import "UIButton+WebCache.h"
-#import "RCIM.h"
+//#import "RCIM.h"
+#import <RCIM.h>
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."
 #endif

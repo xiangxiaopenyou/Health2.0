@@ -1,6 +1,110 @@
 {
     "filterGroups":[
-        
+        {
+            "file": "lsq_filter_Leica_1.gfilter",
+            "valid_key": "4a32e5610712b947",
+            "name": "lsq_filter_group_Leica",
+            "thumb": "lsq_filter_group_thumb_1.jpg",
+            "default_filter_id": 12,
+            "color": "#E74C3C",
+            "filters": [
+                {
+                    "id": 11,
+                    "name": "lsq_filter_Brilliant",
+                    "thumb": "lsq_filter_thumb_Brilliant",
+                    "color": "#E74C3C",
+                    "args": {
+                        "mixied": 0.5
+                    }
+                },
+                { "id": 12, "name": "lsq_filter_Leica" },
+                { "id": 13, "name": "lsq_filter_Gloss" },
+                { "id": 14, "name": "lsq_filter_Harmony" },
+                { "id": 15, "name": "lsq_filter_Noir" }
+            ]
+        },
+        {
+            "file": "lsq_filter_Magic_7.gfilter",
+            "valid_key": "10a7fa8557837a5c",
+            "default_filter_id": 72,
+            "filters": [
+                { "id": 71, "name": "lsq_filter_MagicRed" },
+                { "id": 72, "name": "lsq_filter_MagicYellow" },
+                { "id": 73, "name": "lsq_filter_MagicBlue" },
+                { "id": 74, "name": "lsq_filter_MagicGreen" },
+                { "id": 75, "name": "lsq_filter_MagicPurple" }
+            ]
+        },
+        {
+            "file": "lsq_filter_Beauty_6.gfilter",
+            "valid_key": "4b2493145477da42",
+            "default_filter_id": 65,
+            "filters": [
+                { "id": 61, "name": "lsq_filter_SkinNature" },
+                { "id": 62, "name": "lsq_filter_SkinPink" },
+                { "id": 63, "name": "lsq_filter_SkinJelly" },
+                { "id": 64, "name": "lsq_filter_SkinNoir" },
+                { "id": 65, "name": "lsq_filter_SkinRuddy" },
+                { "id": 66, "name": "lsq_filter_SkinPowder" },
+                { "id": 67, "name": "lsq_filter_SkinSugar" }
+            ]
+        },
+        {
+            "file": "lsq_filter_Lomo_2.gfilter",
+            "valid_key": "62d9fd597a0e2d9d",
+            "default_filter_id": 24,
+            "filters": [
+                { "id": 21, "name": "lsq_filter_Lomo" },
+                { "id": 22, "name": "lsq_filter_Clear" },
+                { "id": 23, "name": "lsq_filter_Morning" },
+                { "id": 24, "name": "lsq_filter_Newborn" },
+                { "id": 25, "name": "lsq_filter_Artistic" }
+            ]
+        },
+        {
+            "file": "lsq_filter_Food_3.gfilter",
+            "valid_key": "9841530ac0eb74d8",
+            "default_filter_id": 32,
+            "filters": [
+                { "id": 31, "name": "lsq_filter_Abao" },
+                { "id": 32, "name": "lsq_filter_Thick" },
+                { "id": 33, "name": "lsq_filter_Vintage" },
+                { "id": 34, "name": "lsq_filter_Nostalgic" },
+                { "id": 35, "name": "lsq_filter_Forest" }
+            ]
+        },
+        {
+            "file": "lsq_filter_Enhance_4.gfilter",
+            "valid_key": "1ece1ddf404b6f19",
+            "default_filter_id": 45,
+            "filters": [
+                { "id": 41, "name": "lsq_filter_Cheerful" },
+                { "id": 42, "name": "lsq_filter_Lightup" },
+                { "id": 43, "name": "lsq_filter_Relaxed" },
+                { "id": 44, "name": "lsq_filter_Rough" },
+                { "id": 45, "name": "lsq_filter_Instant" }
+            ]
+        },
+        {
+            "file": "lsq_filter_Glare_5.gfilter",
+            "valid_key": "e76ac25737f771e6",
+            "default_filter_id": 57,
+            "filters": [
+                {
+                    "id": 51,
+                    "name": "lsq_filter_Wintersunshine",
+                    "args": {
+                        "mixied": 0.5
+                    }
+                 },
+                { "id": 52, "name": "lsq_filter_Coloration" },
+                { "id": 53, "name": "lsq_filter_Fluorescent" },
+                { "id": 54, "name": "lsq_filter_Freshmorning" },
+                { "id": 55, "name": "lsq_filter_Holidaysunshine" },
+                { "id": 56, "name": "lsq_filter_Purplemoon" },
+                { "id": 57, "name": "lsq_filter_Summersunshine" }
+            ]
+        }
     ],
     "stickerCategories":[
         {

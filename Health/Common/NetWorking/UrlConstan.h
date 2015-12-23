@@ -9,20 +9,18 @@
 #ifndef Health_UrlConstan_h
 #define Health_UrlConstan_h
 
-
-//#define URL_BASE @"http://192.168.1.112:9090/jianshen/Admin"//陈世江本地
-#define URL_BASE @"http://jianshen.so/Admin" //发布服务器
-//#define URL_BASE @"http://115.29.170.235/Admin"//正式服务器地址
-//#define URL_BASE @"http://test.jianshen.so/Admin"
-
-//#define URL_FOCUSMAP @"http://felix-chenc.qiniudn.com/"//测试库图片地址
+#define kIsTest 0
+#if kIsTest
+#define URL_BASE @"http://test.jianshen.so/Admin"
 #define URL_FOCUSMAP @"http://7u2h8u.com1.z0.glb.clouddn.com/" //正式库图片地址
-
+#define URL_TRENDS_SHARE_BASE @"http://test.jianshen.so/Health/Trends/detail"//测试服务器
+#define URL_COURSE_SHARE_BASE @"http://test.jianshen.so/Health/Course/appCourse"//测试服务器
+#else
+#define URL_BASE @"http://jianshen.so/Admin" //发布服务器
+#define URL_FOCUSMAP @"http://7u2h8u.com1.z0.glb.clouddn.com/" //正式库图片地址
 #define URL_TRENDS_SHARE_BASE @"http://jianshen.so/Health/Trends/detail" //正式
-//#define URL_TRENDS_SHARE_BASE @"http://test.jianshen.so/Health/Trends/detail"//测试服务器
-
 #define URL_COURSE_SHARE_BASE @"http://jianshen.so/Health/Course/appCourse" //正式
-//#define URL_COURSE_SHARE_BASE @"http://test.jianshen.so/Health/Course/appCourse"//测试服务器
+#endif
 
 /*
  自动更新

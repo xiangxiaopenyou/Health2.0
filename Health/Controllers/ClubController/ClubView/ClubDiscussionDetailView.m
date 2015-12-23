@@ -126,7 +126,8 @@
 //文字内容
 - (MLEmojiLabel*)contentLabel{
     if (!_contentLabel) {
-        _contentLabel = [[MLEmojiLabel alloc]init];
+//        _contentLabel = [[MLEmojiLabel alloc] init];
+        _contentLabel = [MLEmojiLabel new];
         _contentLabel.numberOfLines = 0;
         _contentLabel.font = SMALLFONT_14;
         _contentLabel.emojiDelegate = self;

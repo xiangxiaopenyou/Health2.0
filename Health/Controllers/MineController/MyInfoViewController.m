@@ -13,10 +13,12 @@
 #import "WriteIntrduceViewController.h"
 #import <TuSDK/TuSDK.h>
 
+#define IS_IOS7 [[UIDevice currentDevice].systemVersion  isEqual: @"7.0"]
 @interface MyInfoViewController ()<UIActionSheetDelegate,TuSDKPFCameraDelegate,RMDateSelectionViewControllerDelegate>{
     NSArray* itemArray;
     NSArray* itemValueArray;
     UIView* blackview;
+    UILabel *altlabel;
     // 自定义系统相册组件
     TuSDKCPAlbumComponent *_albumComponent;
     
@@ -37,6 +39,7 @@
 //    leftButtonItem.title = @"";
 //    self.navigationItem.backBarButtonItem = leftButtonItem;
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"save_myinfo_image.png"] style:UIBarButtonItemStylePlain target:self action:@selector(modifyInfo)];
+    NSLog(@"%@",[UIDevice currentDevice].systemVersion);
     
     UIImageView *navigation = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     navigation.image = [UIImage imageNamed:@"navigationbar"];
@@ -65,14 +68,14 @@
     
     itemArray = [[NSArray alloc]init];
 //    itemArray= @[@"头像",@"昵称",@"性别",@"生日",@"身高",@"体重",@"签名",@"所在地"];
-    itemArray= @[@"头像",@"昵称",@"性别",@"生日",@"身高",@"体重",@"签名"];
+    itemArray= @[@"头像",@"昵称",@"性别",@"生日",@"身高",@"体重",@"签名",@"手机号"];
     UserData *userdata = [UserData shared];
     UserInfo *userInfo = userdata.userInfo;
     if ([userInfo.usertype intValue] == 1) {
 //        itemArray= @[@"头像",@"昵称",@"性别",@"生日",@"身高",@"体重",@"签名",@"所在地",@"擅长项目"];
-        itemArray= @[@"头像",@"昵称",@"性别",@"生日",@"身高",@"体重",@"签名",@"擅长项目"];
+        itemArray= @[@"头像",@"昵称",@"性别",@"生日",@"身高",@"体重",@"签名",@"手机号",@"擅长项目"];
     }
-    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NAVIGATIONBAR_HEIGHT)];
+    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATIONBAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - NAVIGATIONBAR_HEIGHT - 50)];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
@@ -140,6 +143,13 @@
     }else{
         [dic setObject:userInfo.userweight forKey:@"userweight"];
     }
+    
+    if ([Util isEmpty:userInfo.usertelphone]) {
+        [dic setObject:@"" forKey:@"tel"];
+    }else{
+        [dic setObject:userInfo.usertelphone forKey:@"tel"];
+    }
+
     if ([Util isEmpty:userInfo.userheight]) {
         [dic setObject:@"0" forKey:@"userheight"];
     }else{
@@ -199,9 +209,9 @@
     UserData *userdata = [UserData shared];
     UserInfo *userInfo = userdata.userInfo;
     if ([userInfo.usertype intValue] == 1) {
-        return 8;
+        return 9;
     }
-    return 7;
+    return 8;
 }
 
 
@@ -250,20 +260,49 @@
                 cell.itemValue.text = @"保密";
             }
         }break;
+            
+        case 7:{
+            if (![Util isEmpty:userinfo.usertelphone]) {
+                NSRange range = NSMakeRange(3, 4);
+//                NSString *strRang = [userinfo.usertelphone substringWithRange:range];
+//                NSRange rang = [userinfo.usertelphone rangeOfString:strRang];
+                
+                cell.itemValue.text = [userinfo.usertelphone stringByReplacingCharactersInRange:range withString:@"****"];
+            } else {
+                cell.itemValue.text = @"无";
+            }
+        }break;
         case 6:{
             NSString *strText = userinfo.userintrduce;
             UIFont *font = [UIFont systemFontOfSize:17.0f];
-            CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];
+            CGSize size = [strText boundingRectWithSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) options:NSStringDrawingUsesLineFragmentOrigin  attributes:@{NSFontAttributeName : font} context:nil].size;
+#ifdef __IPHONE_7_0
+            
+#else
+        CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];     
+#endif
+//            if (IS_IOS7) {
+//                 CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];
+//            }
+
+//            CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];
+           
             cell.itemValue.frame = CGRectMake(cell.itemValue.frame.origin.x, cell.itemValue.frame.origin.y, SCREEN_WIDTH - 120, size.height);
             cell.itemValue.text = userinfo.userintrduce;
         }break;
 //        case 7:{
 //            cell.itemValue.text = userinfo.userarea;
 //        }break;
-        case 7:{
+        case 8:{
             NSString *strText = userinfo.goodat;
             UIFont *font = [UIFont systemFontOfSize:17.0f];
-            CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];
+            CGSize size = [strText boundingRectWithSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) options:NSStringDrawingUsesLineFragmentOrigin  attributes:@{NSFontAttributeName : font} context:nil].size;
+#ifdef __IPHONE_7_0
+            
+#else
+         CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];
+#endif
+//            CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByCharWrapping];
             cell.itemValue.frame = CGRectMake(cell.itemValue.frame.origin.x, cell.itemValue.frame.origin.y, SCREEN_WIDTH - 120, size.height);
             cell.itemValue.text = userinfo.goodat;
         }break;
@@ -285,16 +324,27 @@
         UserInfo *userInfo = userdata.userInfo;
         NSString *strText = userInfo.userintrduce;
         UIFont *font = [UIFont systemFontOfSize:17.0f];
-        CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize size = [strText boundingRectWithSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) options:NSStringDrawingUsesLineFragmentOrigin  attributes:@{NSFontAttributeName : font} context:nil].size;
+#ifdef __IPHONE_7_0
+        
+#else
+       CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByWordWrapping];
+#endif
         return size.height+40;
-    }else if (indexPath.row == 7){
+    }else if (indexPath.row == 8){
         static NSString *mineDetailInfo = @"MineDetailInfo";
         MineDetailInfoViewCell *cell = [[MineDetailInfoViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:mineDetailInfo];
         UserData *userdata = [UserData shared];
         UserInfo *userInfo = userdata.userInfo;
         NSString *strText = userInfo.goodat;
         UIFont *font = [UIFont systemFontOfSize:17.0f];
-        CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByWordWrapping];
+        CGSize size = [strText boundingRectWithSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) options:NSStringDrawingUsesLineFragmentOrigin  attributes:@{NSFontAttributeName : font} context:nil].size;
+#ifdef __IPHONE_7_0
+        
+#else
+       CGSize size = [strText sizeWithFont:font constrainedToSize:CGSizeMake(cell.itemValue.frame.size.width, NSIntegerMax) lineBreakMode:NSLineBreakByWordWrapping];
+#endif
+
         return size.height+40;
     }else {
         return 60;
@@ -346,6 +396,15 @@
             textfield.keyboardType = UIKeyboardTypeNumberPad;
             [alert show];
         }break;
+        case 7:{
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"绑定", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            alert.tag = 50;
+            UITextField *textfield = [alert textFieldAtIndex:0];
+            textfield.placeholder = @"请输入手机号";
+            textfield.keyboardType = UIKeyboardTypeNumberPad;
+            [alert show];
+        }break;
         case 6:
         {
             UserData *userdata = [UserData shared];
@@ -359,7 +418,7 @@
             }];
             [self.navigationController pushViewController:controller animated:YES];
         }break;
-        case 7:{
+        case 8:{
             UserData *userdata = [UserData shared];
             UserInfo *userInfo = userdata.userInfo;
             WriteIntrduceViewController *controller = [[WriteIntrduceViewController alloc]init];
@@ -376,6 +435,7 @@
             break;
     }
 }
+
 - (void)datePicker
 {
     [RMDateSelectionViewController setLocalizedTitleForCancelButton:@"取消"];
@@ -444,7 +504,30 @@
                 UserInfo *userInfo = userdata.userInfo;
                 userInfo.userweight = textfield.text;
             }break;
+            case 50:{
+                NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:@"^(134|135|136|137|138|139|147|150|151|152|157|158|159|182|187|188|130|131|132|155|156|185|186|133|153|180|189|177|178|176)\\d{8}$" options:NSRegularExpressionCaseInsensitive error:nil];
+                NSArray *match = [reg matchesInString:textfield.text options:NSMatchingReportCompletion range:NSMakeRange(0, [textfield.text length])];
+                if (match && match.count > 0) {
+                    UserData *userdata = [UserData shared];
+                    UserInfo *userInfo = userdata.userInfo;
+                    userInfo.usertelphone = textfield.text;
+                }
+                else{
+                    if (!altlabel) {
+                        altlabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 20)];
+                        altlabel.text = @"手机号码格式错误";
+                        altlabel.textAlignment = NSTextAlignmentCenter;
+                        altlabel.textColor = [UIColor whiteColor];
+                        [self.view addSubview:altlabel];
+                    }
+                    else{
+                        altlabel.alpha = 1;
+                    }
+                    
+                    [self performSelector:@selector(afterDelay) withObject:nil afterDelay:2];
+                }
                 
+            }break;
             default:
                 break;
         }
@@ -452,6 +535,9 @@
     [self.tableview reloadData];
 }
 
+- (void)afterDelay{
+    altlabel.alpha = 0;
+}
 #pragma mark - UIActionSheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (actionSheet.tag) {

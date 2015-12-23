@@ -67,7 +67,7 @@
 -(void)commonInit{
     
     self.fontName=@"Helvetica";
-    self.numberOfVerticalElements=NUMBER_VERTICAL_ELEMENTS;
+    self.numberOfVerticalElements = NUMBER_VERTICAL_ELEMENTS;
     self.xAxisFontColor = [UIColor darkGrayColor];
     self.xAxisFontSize = AXIS_FONT_SIZE;
     self.horizontalLinesColor = [UIColor lightGrayColor];
@@ -299,8 +299,7 @@
     }
     // NSLog(@"+++++%lf,%lf",_contentScroll.x,_contentScroll.y);
     
-    if ( _contentScroll.x-20<=0) {
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"addData" object:nil];
+    if ( _contentScroll.x==0) {
     }
   _contentScroll.y =0;// close the move up
     

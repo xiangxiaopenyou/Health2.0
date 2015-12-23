@@ -104,12 +104,13 @@
     [applyButton addTarget:self action:@selector(applyClick) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:applyButton];
     
-    if ([self.course.coursesign integerValue] == 3) {
-        [applyButton setTitle:@"立即申请" forState:UIControlStateNormal];
-    }
-    else {
+    if ([self.course.coursesign integerValue] == 2) {
         [applyButton setTitle:@"请等待审核..." forState:UIControlStateNormal];
         applyButton.userInteractionEnabled = NO;
+        
+    }
+    else {
+        [applyButton setTitle:@"立即申请" forState:UIControlStateNormal];
     }
 }
 

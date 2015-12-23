@@ -132,7 +132,7 @@ static CGFloat widthCallback(void *refCon) {
     self.lineHeightMultiple = 1.0f;
     self.lineSpacing = kLineSpacing; //默认行间距
     
-    [self setValue:[NSArray array] forKey:@"links"];
+    //[self setValue:[NSArray array] forKey:@"links"];
     
     NSMutableDictionary *mutableLinkAttributes = [NSMutableDictionary dictionary];
     [mutableLinkAttributes setObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
